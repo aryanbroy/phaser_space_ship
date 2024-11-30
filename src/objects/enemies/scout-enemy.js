@@ -2,7 +2,7 @@ import { BotScoutInputComponent } from '../../components/input/bot-scout-input-c
 import { KeyboardInputComponent } from '../../components/input/keyboard-input-component.js';
 import { HorizontalMovement } from '../../components/movement/horizontal-movement.js';
 import { VerticalMovementComponent } from '../../components/movement/vertical-movement.js';
-import { BOT_SCOUT_MOVEMENT_VERTICAL_VELOCITY } from '../../config.js';
+import { BOT_SCOUT_MOVEMENT_VERTICAL_VELOCITY, ENEMY_SCOUT_MOVEMENT_HORIZONTAL_VELOCITY } from '../../config.js';
 
 export class ScoutEnemy extends Phaser.GameObjects.Container {
   #shipSprite;
@@ -27,14 +27,18 @@ export class ScoutEnemy extends Phaser.GameObjects.Container {
 
     this.add([this.#shipEngine, this.#shipSprite]);
 
-    this.#inputComponent = new BotScoutInputComponent();
+    this.#inputComponent = new BotScoutInputComponent(this);
     this.#verticalMovementComponent = new VerticalMovementComponent(
       this,
       this.#inputComponent,
       BOT_SCOUT_MOVEMENT_VERTICAL_VELOCITY
     );
 
-    this.#horizontalMovementComponent = new HorizontalMovement(this, this.#inputComponent);
+    this.#horizontalMovementComponent = new HorizontalMovement(
+      this,
+      this.#inputComponent,
+      ENEMY_SCOUT_MOVEMENT_HORIZONTAL_VELOCITY
+    );
 
     this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);
 
@@ -49,6 +53,8 @@ export class ScoutEnemy extends Phaser.GameObjects.Container {
 
   update(timeStamp, deltaTime) {
     // responsible for moving the scout enemy
-    // this.#verticalMovementComponent.update();
+    this.#inputComponent.update();
+    this.#verticalMovementComponent.update();
+    this.#horizontalMovementComponent.update();
   }
 }
