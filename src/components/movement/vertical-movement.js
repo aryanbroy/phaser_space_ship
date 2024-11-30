@@ -10,7 +10,7 @@ export class VerticalMovementComponent {
 
     this.#gameObject.body.setDamping(true);
     this.#gameObject.body.setDrag(0.01);
-    this.#gameObject.body.setMaxVelocity(220);
+    this.#gameObject.body.setMaxVelocity(200);
   }
 
   reset() {
@@ -27,12 +27,6 @@ export class VerticalMovementComponent {
       this.#gameObject.body.setAngularAcceleration(0);
     }
 
-    // if(this.#inputComponent.downIsDown) {
-    //     this.#gameObject.body.velocity.y = -200;
-    // } else {
-    //     this.#gameObject.body.velocity.y = 0;
-    //     this.#gameObject.body.setAngularAcceleration(0);
-    // }
     // this.#gameObject.body.velocity.y = this.#velocity;
   }
 }
