@@ -1,9 +1,11 @@
 import { KeyboardInputComponent } from '../components/input/keyboard-input-component.js';
 import { HorizontalMovement } from '../components/movement/horizontal-movement.js';
-import { PLAYER_MOVEMENT_HORIZONTAL_VELOCITY } from '../config.js';
+import { WeaponComponent } from '../components/weapon/weapon-component.js';
+import { PLAYER_BULLET_MAX_COUNT, PLAYER_MOVEMENT_HORIZONTAL_VELOCITY } from '../config.js';
 
 export class Player extends Phaser.GameObjects.Container {
   #shipSprite;
+  #weaponComponent;
   #shipEngine;
   #shipEngineThruster;
   #keyboardInputComponent;
@@ -32,6 +34,11 @@ export class Player extends Phaser.GameObjects.Container {
       this.#keyboardInputComponent,
       PLAYER_MOVEMENT_HORIZONTAL_VELOCITY
     );
+    this.#weaponComponent = new WeaponComponent(this, this.#keyboardInputComponent, {
+      maxBullets: PLAYER_BULLET_MAX_COUNT,
+      offsetY: -20,
+      interval: 500,
+    });
 
     this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);
 
@@ -48,6 +55,7 @@ export class Player extends Phaser.GameObjects.Container {
     // console.log(timeStamp, deltaTime);
     this.#keyboardInputComponent.update();
     this.#horizontalMovementComponent.update();
+    this.#weaponComponent.update(deltaTime);
     // console.log(this.#keyboardInputComponent.downIsDown);
   }
 }

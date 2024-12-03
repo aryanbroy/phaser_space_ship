@@ -1,5 +1,4 @@
 import { BotScoutInputComponent } from '../../components/input/bot-scout-input-component.js';
-import { KeyboardInputComponent } from '../../components/input/keyboard-input-component.js';
 import { HorizontalMovement } from '../../components/movement/horizontal-movement.js';
 import { VerticalMovementComponent } from '../../components/movement/vertical-movement.js';
 import { BOT_SCOUT_MOVEMENT_VERTICAL_VELOCITY, ENEMY_SCOUT_MOVEMENT_HORIZONTAL_VELOCITY } from '../../config.js';
